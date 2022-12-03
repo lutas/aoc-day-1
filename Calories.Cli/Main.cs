@@ -2,10 +2,10 @@
 
 public class Main
 {
-    public static int CalculateMostCaloriesForASingleElf()
+    public static int CalculateMostCaloriesForASingleElf(string filePath)
     {
         var file = new Calories.Input.DataFile();
-        if (!file.Load("elf-calories.txt"))
+        if (!file.Load(filePath))
         {
             Console.Error.WriteLine("Failed to load data file");
             return -1;
@@ -21,7 +21,24 @@ public class Main
             return -1;
         }
 
-        Console.WriteLine("Highest calorie count is {0}", elf.CalculateTotalCalories());
-        return 0;
+        int totalCalories = elf.CalculateTotalCalories();
+        return totalCalories;
+    }
+    public static int CalculateTopThreeCalories(string filePath)
+    {
+        var file = new Calories.Input.DataFile();
+        if (!file.Load(filePath))
+        {
+            Console.Error.WriteLine("Failed to load data file");
+            return -1;
+        }
+        
+        var elfManager = new Calories.Elves.ElfManager();
+        elfManager.ParseData(file.Data);
+
+        var elves = elfManager.GetTopThreeElves();
+        int totalCalories = elves.Sum(elf => elf.CalculateTotalCalories());
+        
+        return totalCalories;
     }
 }

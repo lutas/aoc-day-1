@@ -67,8 +67,14 @@ public class ElfManager
 
         var highest = elves.Aggregate((elf1, elf2) => {
             return elf1.CalculateTotalCalories() > elf2.CalculateTotalCalories() ? elf1 : elf2;
-    }   );
+        });
 
         return highest;
+    }
+
+    public IEnumerable<Elf> GetTopThreeElves()
+    {
+        var elves = this.elves.OrderByDescending(elf => elf.CalculateTotalCalories());
+        return elves.Take(3);
     }
 }

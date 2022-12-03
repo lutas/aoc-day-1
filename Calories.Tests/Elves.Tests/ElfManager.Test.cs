@@ -1,7 +1,5 @@
 namespace Calories.Tests.Elves.Tests;
 
-using Shouldly;
-
 public class ElfManagerTests
 {
     [Fact]
@@ -79,6 +77,5 @@ public class ElfManagerTests
         manager.ParseData(new string[] { "100", "30" });
         
         manager.ElfCount.ShouldBe(2);
-    }
-    
+    }    
 }
